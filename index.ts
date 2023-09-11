@@ -36,10 +36,6 @@ const processPriceCalcultation = (distributionTab: number[]) => {
   return price;
 };
 
-const isMultipleOfFour = (sum: number) => {
-  return sum % 4 === 0;
-};
-
 const getBestPriceWithDiscount = (books: number[]) => {
   const distributionArr: number[] = [];
   let booksLeft = [...books]; // copy of the books array as order matters

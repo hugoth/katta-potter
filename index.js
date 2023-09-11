@@ -35,9 +35,6 @@ var processPriceCalcultation = function (distributionTab) {
     }
     return price;
 };
-var isMultipleOfFour = function (sum) {
-    return sum % 4 === 0;
-};
 var getBestPriceWithDiscount = function (books) {
     var distributionArr = [];
     var booksLeft = __spreadArray([], books, true); // copy of the books array as order matters
