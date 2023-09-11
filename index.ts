@@ -36,26 +36,34 @@ const processPriceCalcultation = (distributionTab: number[]) => {
   return price;
 };
 
+const isMultipleOfFour = (sum: number) => {
+  return sum % 4 === 0;
+};
+
 const getBestPriceWithDiscount = (books: number[]) => {
   const distributionArr: number[] = [];
   let booksLeft = [...books]; // copy of the books array as order matters
 
   for (let i = 5; i > 0; i--) {
-    // get the number of occurence of the repartition starting with 5 books, then 4 books, etc...
+    // get the number of occurence of the distribution starting with 5 books, then 4 books, etc...
     const numberOfOccurence = getNumberOfOccurence(booksLeft, i);
     // substract the number of occurence to the books array
     booksLeft = substractToAllBooks(booksLeft, numberOfOccurence);
-    // push the number of occurence to the repartition Arr
+    // push the number of occurence to the distribution Arr
     distributionArr.push(numberOfOccurence);
   }
 
   // special case: as the discount for two sets of four books is greater than a set of five and a set of three.
   // we need to check if we can have two sets of four books instead of a set of five and a set of three.
-  // if so, we need to update the repartition Arr accordingly.
+  // so the sum of the number of occurence of the first book and the third book must be a multiple of four.
+  // if so, we need to update the distribution Array accordingly.
+
   if (distributionArr[0] + distributionArr[2] >= distributionArr[1]) {
-    distributionArr[1] = distributionArr[0] + distributionArr[2];
-    distributionArr[0] = 0;
-    distributionArr[2] = 0;
+    if (isMultipleOfFour(distributionArr[0] * 5 + distributionArr[2] * 3)) {
+      distributionArr[1] += distributionArr[0] + distributionArr[2];
+      distributionArr[0] = 0;
+      distributionArr[2] = 0;
+    }
   }
 
   return processPriceCalcultation(distributionArr);
