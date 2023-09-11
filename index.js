@@ -60,4 +60,5 @@ var getBestPriceWithDiscount = function (books) {
     return processPriceCalcultation(distributionArr);
 };
 var booksDistributionInput = [2, 2, 2, 1, 1]; // number of first book, second book, third book, fourth book, fifth book.
-getBestPriceWithDiscount(booksDistributionInput); // returns 51.2
+var result = getBestPriceWithDiscount(booksDistributionInput); // returns 51.2
+console.log("result:", result + "€");

@@ -67,4 +67,6 @@ const getBestPriceWithDiscount = (books: number[]) => {
 
 const booksDistributionInput = [2, 2, 2, 1, 1]; // number of first book, second book, third book, fourth book, fifth book.
 
-getBestPriceWithDiscount(booksDistributionInput); // returns 51.2
+const result = getBestPriceWithDiscount(booksDistributionInput); // returns 51.2
+
+console.log("result:", result + "€");
