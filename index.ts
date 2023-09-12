@@ -14,7 +14,7 @@ const getNumberOfOccurence = (books: number[], nbOfBooks: number) => {
   return numberOfDifferentBooks;
 };
 
-// this function substracts the number of books of the repartition to the books array
+// this function substracts the number of books of the distribution to the books array
 const substractToAllBooks = (
   books: number[],
   numberOfDifferentBooks: number
@@ -85,7 +85,7 @@ const getBestPriceWithDiscount = (books: number[]) => {
     }
     if (decimal === 0.5) {
       distributionArr[1] += floor - 1;
-      distributionArr[0] = 1;
+      distributionArr[0] = 0;
       distributionArr[2] = 0;
       distributionArr[3] += 1;
     }

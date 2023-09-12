@@ -19,7 +19,7 @@ var getNumberOfOccurence = function (books, nbOfBooks) {
     }
     return numberOfDifferentBooks;
 };
-// this function substracts the number of books of the repartition to the books array
+// this function substracts the number of books of the distribution to the books array
 var substractToAllBooks = function (books, numberOfDifferentBooks) {
     var substractedBooks = books.map(function (book) { return book - numberOfDifferentBooks; });
     return substractedBooks;
@@ -77,7 +77,7 @@ var getBestPriceWithDiscount = function (books) {
         }
         if (decimal === 0.5) {
             distributionArr[1] += floor - 1;
-            distributionArr[0] = 1;
+            distributionArr[0] = 0;
             distributionArr[2] = 0;
             distributionArr[3] += 1;
         }
