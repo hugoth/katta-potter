@@ -35,8 +35,10 @@ var processPriceCalcultation = function (distributionTab) {
     }
     return price;
 };
-var isMultipleOfFour = function (sum) {
-    return sum % 4 === 0;
+var getMultipleAndRestOfFour = function (sum) {
+    var floor = Math.floor(sum / 4);
+    var decimal = sum / 4 - floor;
+    return { floor: floor, decimal: decimal };
 };
 var getBestPriceWithDiscount = function (books) {
     var distributionArr = [];
@@ -51,13 +53,39 @@ var getBestPriceWithDiscount = function (books) {
     }
     // special case: as the discount for two sets of four books is greater than a set of five and a set of three.
     // we need to check if we can have two sets of four books instead of a set of five and a set of three.
-    // so the sum of the number of occurence of the first book and the third book must be a multiple of four.
-    // if so, we need to update the distribution Array accordingly.
+    // there is four cases here for a multiple of 4: first one there is no rest, second one rest = 0.25, third one rest = 0.5 and last rest = 0.75
+    // if there is no rest, it's multple of four no need to compensate with other set of books
+    // if there is a rest of O.25 it means that we need to remove a set of 4 four books and add a set of 3 books
+    // if there is a rest of O.5 it means that we need to remove a set of 4 four books and add a set of 2 books
+    // if there is a rest of O.75 it means that we need to remove a set of 4 four books and add a set of 1 book
+    // distributionArr[0] = sets of 5 books,
+    // distributionArr[1] = sets of 4 books,
+    // distributionArr[2] = sets of 3 books
+    // distributionArr[3] = sets of 2 books
+    // distributionArr[4] = sets of 1 book
     if (distributionArr[0] + distributionArr[2] >= distributionArr[1]) {
-        if (isMultipleOfFour(distributionArr[0] * 5 + distributionArr[2] * 3)) {
-            distributionArr[1] += distributionArr[0] + distributionArr[2];
+        var _a = getMultipleAndRestOfFour(distributionArr[0] * 5 + distributionArr[2] * 3), floor = _a.floor, decimal = _a.decimal;
+        if (decimal === 0) {
+            distributionArr[1] += floor;
             distributionArr[0] = 0;
             distributionArr[2] = 0;
+        }
+        if (decimal === 0.25) {
+            distributionArr[1] += floor - 1;
+            distributionArr[0] = 0;
+            distributionArr[2] = 1;
+        }
+        if (decimal === 0.5) {
+            distributionArr[1] += floor - 1;
+            distributionArr[0] = 1;
+            distributionArr[2] = 0;
+            distributionArr[3] += 1;
+        }
+        if (decimal === 0.75) {
+            distributionArr[1] += floor - 1;
+            distributionArr[0] = 0;
+            distributionArr[2] = 0;
+            distributionArr[4] += 1;
         }
     }
     return processPriceCalcultation(distributionArr);
